@@ -1,0 +1,13 @@
+[package]
+name = "infuse"
+version = "0.1.0"
+authors = ["Sébastien Lerique <sl@mehho.net>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+lopdf = { path = "../lopdf", features = ["rust_backend"], default-features = false }
+xml-rs = "0.8"
+console_error_panic_hook = "0.1"
