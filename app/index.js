@@ -24,7 +24,7 @@ infuser.then(infuser => {
     ev.preventDefault();
 
     if (ev.dataTransfer.items) {
-      console.debug('[drag] ' + ev.dataTransfer.items.length + ' files');
+      console.debug('[drag] ' + ev.dataTransfer.items.length + ' file(s)');
       // Use DataTransferItemList interface to access the file(s)
       for (var i = 0; i < ev.dataTransfer.items.length; i++) {
         // If dropped items aren't files, reject them
