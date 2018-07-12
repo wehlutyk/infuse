@@ -15,8 +15,16 @@ use lopdf::Document;
 #[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
 #[wasm_bindgen]
 extern {
+    #[wasm_bindgen(js_namespace = console, js_name = error)]
+    fn log_error(s: &str);
+    #[wasm_bindgen(js_namespace = console, js_name = warn)]
+    fn log_warn(s: &str);
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
+    #[wasm_bindgen(js_namespace = console, js_name = info)]
+    fn log_info(s: &str);
+    #[wasm_bindgen(js_namespace = console, js_name = debug)]
+    fn log_debug(s: &str);
 }
 
 #[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
@@ -30,7 +38,14 @@ impl log::Log for WasmConsoleLogger {
 
     fn log(&self, record: &log::Record) {
         if self.enabled(record.metadata()) {
-            log(&format!("{} - {}", record.level(), record.args()));
+            let log_type = match record.level() {
+                log::Level::Error => log_error,
+                log::Level::Warn => log_warn,
+                log::Level::Info => log_info,
+                log::Level::Debug => log_debug,
+                log::Level::Trace => log_debug,
+            };
+            log_type(&format!("{} - {}", record.level(), record.args()));
         }
     }
 

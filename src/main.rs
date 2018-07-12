@@ -23,14 +23,14 @@ fn main() -> std::io::Result<()> {
 
     // Process arguments
     let arguments = env::args().skip(1);
-    info!("[args] {} file(s)", arguments.len());
+    debug!("[args] {} file(s)", arguments.len());
     for argument in arguments {
-        info!("[processing] file name = {}", &argument);
+        debug!("[processing] file name = {}", &argument);
         let file = File::open(&argument)?;
         let mut buf_reader = BufReader::new(file);
         let mut contents: Vec<u8> = vec![];
         buf_reader.read_to_end(&mut contents)?;
-        info!("[processing] reading \"{}\" ended", &argument);
+        debug!("[processing] reading \"{}\" ended", &argument);
 
         infuse::process_file_data(contents);
     }
