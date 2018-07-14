@@ -6,54 +6,13 @@ extern crate lopdf;
 #[macro_use]
 extern crate log;
 
+pub mod logging;
+
 #[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
 use std::panic;
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
 use lopdf::Document;
-
-#[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
-#[wasm_bindgen]
-extern {
-    #[wasm_bindgen(js_namespace = console, js_name = error)]
-    fn log_error(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = warn)]
-    fn log_warn(s: &str);
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = info)]
-    fn log_info(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = debug)]
-    fn log_debug(s: &str);
-}
-
-#[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
-struct WasmConsoleLogger;
-
-#[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
-impl log::Log for WasmConsoleLogger {
-    fn enabled(&self, metadata: &log::Metadata) -> bool {
-        metadata.level() <= log::Level::Trace
-    }
-
-    fn log(&self, record: &log::Record) {
-        if self.enabled(record.metadata()) {
-            let log_type = match record.level() {
-                log::Level::Error => log_error,
-                log::Level::Warn => log_warn,
-                log::Level::Info => log_info,
-                log::Level::Debug => log_debug,
-                log::Level::Trace => log_debug,
-            };
-            log_type(&format!("{} - {}", record.level(), record.args()));
-        }
-    }
-
-    fn flush(&self) {}
-}
-
-#[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
-static WASM_LOGGER: WasmConsoleLogger = WasmConsoleLogger;
 
 #[wasm_bindgen]
 pub fn init() {
@@ -62,7 +21,7 @@ pub fn init() {
     #[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
     {
         panic::set_hook(Box::new(console_error_panic_hook::hook));
-        log::set_logger(&WASM_LOGGER)
+        log::set_logger(&logging::WASM_LOGGER)
             .map(|()| log::set_max_level(log::LevelFilter::Trace)).unwrap();
         prefix = "Wasm";
     }
