@@ -1,10 +1,10 @@
 #![cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
 
-use log::{Level, Record, Metadata, Log};
+use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     #[wasm_bindgen(js_namespace = console, js_name = error)]
     fn log_error(s: &str);
     #[wasm_bindgen(js_namespace = console, js_name = warn)]
@@ -29,8 +29,12 @@ impl Log for WasmConsoleLogger {
                 Level::Debug => log_debug,
                 Level::Trace => log_debug,
             };
-            log_type(&format!("{}: {}: {}", record.level(),
-                              record.module_path().unwrap_or("<no module>"), record.args()));
+            log_type(&format!(
+                "{}: {}: {}",
+                record.level(),
+                record.module_path().unwrap_or("<no module>"),
+                record.args()
+            ));
         }
     }
 

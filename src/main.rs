@@ -5,8 +5,8 @@ extern crate infuse;
 
 use std::env;
 use std::fs::File;
-use std::io::BufReader;
 use std::io::prelude::*;
+use std::io::BufReader;
 
 fn main() -> std::io::Result<()> {
     // Set up logging
@@ -14,7 +14,7 @@ fn main() -> std::io::Result<()> {
     builder.filter_level(log::LevelFilter::Trace);
 
     if env::var("RUST_LOG").is_ok() {
-       builder.parse(&env::var("RUST_LOG").unwrap());
+        builder.parse(&env::var("RUST_LOG").unwrap());
     }
 
     // Initialise both logging and infuse

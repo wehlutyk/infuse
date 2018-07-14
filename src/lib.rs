@@ -1,18 +1,18 @@
 #![feature(proc_macro, wasm_custom_section, wasm_import_module)]
 
-extern crate wasm_bindgen;
 extern crate console_error_panic_hook;
 extern crate lopdf;
+extern crate wasm_bindgen;
 #[macro_use]
 extern crate log;
 
 pub mod logging;
 
+use lopdf::Document;
+use std::io::Cursor;
 #[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
 use std::panic;
-use std::io::Cursor;
 use wasm_bindgen::prelude::*;
-use lopdf::Document;
 
 #[wasm_bindgen]
 pub fn init() {
@@ -22,7 +22,8 @@ pub fn init() {
     {
         panic::set_hook(Box::new(console_error_panic_hook::hook));
         log::set_logger(&logging::WASM_LOGGER)
-            .map(|()| log::set_max_level(log::LevelFilter::Trace)).unwrap();
+            .map(|()| log::set_max_level(log::LevelFilter::Trace))
+            .unwrap();
         prefix = "Wasm";
     }
     #[cfg(not(all(target_arch = "wasm32", not(target_os = "emscripten"))))]
