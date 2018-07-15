@@ -8,7 +8,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 wasm-bindgen = "0.2"
-lopdf = { path = "../lopdf", features = ["rust_backend"], default-features = false }
+lopdf = { git = "https://github.com/wehlutyk/lopdf", branch = "wasm32", features = ["rust_backend"], default-features = false }
 xml-rs = "0.8"
 console_error_panic_hook = "0.1"
 log = "0.4"
