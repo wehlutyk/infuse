@@ -1,5 +1,3 @@
-#![feature(proc_macro, wasm_custom_section, wasm_import_module)]
-
 extern crate console_error_panic_hook;
 extern crate lopdf;
 extern crate wasm_bindgen;
