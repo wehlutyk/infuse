@@ -3,6 +3,9 @@
 use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 
+// Once rustwasm/wasm-bindgen#496 is in a release we can call
+// these `error`, `warn`, etc., without conflicting with
+// console_error_panic_hook's binding to `console.error()`.
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console, js_name = error)]
