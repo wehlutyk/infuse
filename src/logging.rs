@@ -3,19 +3,17 @@
 use log::{Level, Log, Metadata, Record};
 use wasm_bindgen::prelude::*;
 
-// Once rustwasm/wasm-bindgen#496 is in a release we can call
-// these `error`, `warn`, etc., without conflicting with
-// console_error_panic_hook's binding to `console.error()`.
+// Use web-sys once it's published (rustwasm/wasm-bindgen#613)
 #[wasm_bindgen]
 extern "C" {
-    #[wasm_bindgen(js_namespace = console, js_name = error)]
-    fn log_error(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = warn)]
-    fn log_warn(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = info)]
-    fn log_info(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = debug)]
-    fn log_debug(s: &str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn error(s: &str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn warn(s: &str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn info(s: &str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn debug(s: &str);
 }
 
 impl Log for WasmConsoleLogger {
@@ -25,14 +23,14 @@ impl Log for WasmConsoleLogger {
 
     fn log(&self, record: &Record) {
         if self.enabled(record.metadata()) {
-            let log_type = match record.level() {
-                Level::Error => log_error,
-                Level::Warn => log_warn,
-                Level::Info => log_info,
-                Level::Debug => log_debug,
-                Level::Trace => log_debug,
+            let log_fn = match record.level() {
+                Level::Error => error,
+                Level::Warn => warn,
+                Level::Info => info,
+                Level::Debug => debug,
+                Level::Trace => debug,
             };
-            log_type(&format!(
+            log_fn(&format!(
                 "{}: {}: {}",
                 record.level(),
                 record.module_path().unwrap_or("<no module>"),
