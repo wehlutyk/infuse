@@ -17,11 +17,11 @@ fn main() -> std::io::Result<()> {
         builder.parse(&env::var("RUST_LOG").unwrap());
     }
 
-    // Initialise both logging and infuse
+    // Initialise both logging and the infuse library
     builder.init();
     infuse::init();
 
-    // Process arguments
+    // Delegate all input files to the infuse library
     let arguments = env::args().skip(1);
     debug!("[args] {} file(s)", arguments.len());
     for argument in arguments {
