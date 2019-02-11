@@ -7,17 +7,9 @@ authors = ["Sébastien Lerique <sl@mehho.net>"]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = "0.2.22"
-lopdf = { version = "0.17", features = ["rust_backend"], default-features = false }
+wasm-bindgen = "0.2.33"
+lopdf = "0.19"
 xml-rs = "0.8"
-console_error_panic_hook = "0.1.2"
+console_error_panic_hook = "0.1.5"
 log = "0.4"
-env_logger = "0.5"
-
-[patch.crates-io]
-# Until next version is published
-miniz_oxide_c_api = { git = "https://github.com/Frommi/miniz_oxide" }
-# Until the above and alexcrichton/flate2-rs#165 is merged
-flate2 = { git = "https://github.com/eminence/flate2-rs", branch = "wasm_wip" }
-# Until the above and I PR lopdf for wasm support
-lopdf = { git = "https://github.com/wehlutyk/lopdf", branch = "wasm32" }
+env_logger = "0.6"
