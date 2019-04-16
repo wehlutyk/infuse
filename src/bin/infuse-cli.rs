@@ -14,7 +14,7 @@ fn main() -> std::io::Result<()> {
     builder.filter_level(log::LevelFilter::Trace);
 
     if env::var("RUST_LOG").is_ok() {
-        builder.parse(&env::var("RUST_LOG").unwrap());
+        builder.parse_filters(&env::var("RUST_LOG").unwrap());
     }
 
     // Initialise both logging and the infuse library

@@ -8,9 +8,9 @@ authors = ["Sébastien Lerique <sl@mehho.net>"]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = "0.2.36"
-lopdf = "0.19"
+wasm-bindgen = "0.2.42"
+lopdf = "0.20"
 xml-rs = "0.8"
-console_error_panic_hook = "0.1.5"
+console_error_panic_hook = "0.1.6"
 log = "0.4"
 env_logger = "0.6"
