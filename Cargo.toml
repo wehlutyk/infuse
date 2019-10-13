@@ -2,15 +2,15 @@
 name = "infuse"
 version = "0.1.0"
 edition = "2018"
-authors = ["Sébastien Lerique <sl@mehho.net>"]
+authors = ["Sébastien Lerique <sl@eauchat.org>"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = "0.2.42"
-lopdf = "0.20"
+wasm-bindgen = "0.2.51"
+lopdf = "0.23"
 xml-rs = "0.8"
 console_error_panic_hook = "0.1.6"
 log = "0.4"
-env_logger = "0.6"
+env_logger = "0.7"

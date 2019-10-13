@@ -1,7 +1,7 @@
 #!/bin/bash -e
 echo "Building debug web targets..."
 echo
-rm -f app/infuse.d.ts app/infuse.js app/infuse_bg.wasm
+rm -f app/infuse*
 cargo build --target=wasm32-unknown-unknown
 
 echo
