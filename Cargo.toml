@@ -14,3 +14,6 @@ xml-rs = "0.8"
 console_error_panic_hook = "0.1.6"
 log = "0.4"
 env_logger = "0.7"
+
+[patch.crates-io]
+lopdf = { git = "https://github.com/wehlutyk/lopdf", branch = "conditional-rayon" }
