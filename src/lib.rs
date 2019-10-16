@@ -48,7 +48,10 @@ pub fn process_file_data(data: Vec<u8>) {
         info!("Page {}", &page_number);
         info!("Content streams: {:#?}", &doc.get_page_contents(object_id));
         info!("Contents: {:#?}", &doc.get_page_content(object_id));
-        info!("Decoded contents: {:#?}", &doc.get_and_decode_page_content(object_id));
+        info!(
+            "Decoded contents: {:#?}",
+            &doc.get_and_decode_page_content(object_id)
+        );
         info!("Resources: {:#?}", &doc.get_page_resources(object_id));
         info!("Fonts: {:#?}", &doc.get_page_fonts(object_id));
     }
