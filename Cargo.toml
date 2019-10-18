@@ -16,4 +16,4 @@ log = "0.4"
 env_logger = "0.7"
 
 [patch.crates-io]
-lopdf = { git = "https://github.com/wehlutyk/lopdf", branch = "conditional-rayon" }
+lopdf = { git = "https://github.com/J-F-Liu/lopdf", branch = "master" }
